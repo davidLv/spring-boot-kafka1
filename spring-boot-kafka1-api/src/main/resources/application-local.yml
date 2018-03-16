@@ -1,0 +1,66 @@
+server:
+      port: 8099  #配置端口
+      address : localhost
+      session-timeout: 30
+      tomcat.max-threads: 0
+      tomcat.uri-encoding: UTF-8
+
+spring:
+        application:
+                      name: spring-boot-kafka
+        kafka:
+                bootstrapServers: 172.16.2.132:9092   # 指定kafka 代理地址，可以多个
+#                bootstrapServers: zoo1:9092   # 指定kafka 代理地址，可以多个
+                listener:
+                            concurrency: 3 # 指定listener 容器中的线程数，用于提高并发量
+                producer:
+                             batchSize: 1000   # 每次批量发送消息的数量
+                consumer:
+                            groupId: kafka-test-group1   # 指定默认消费者group id
+                template:
+                            defaultTopic: kafka-test-topic   # kafka topic
+
+
+
+        devtools:
+                  restart:
+                            enabled: true #热部署生效
+                            additional-paths: sharding-expand/src/main/java  #设置重启的目录
+      #                      exclude: WEB-INF/**   #classpath目录下的WEB-INF文件夹内容修改不重启
+
+
+# LOGGING  INFO  DEBUG
+logging:
+        level:
+              root: INFO
+              org:
+                  springframework: INFO
+                  hibernate: INFO
+#        path: F:\\
+#        file: log.log
+              com:
+                  ibatis: INFO
+                  abin:
+                        lee:
+                            spring:
+                                      boot:
+                                            kafka:
+                                                    api: INFO
+
+
+
+# true false
+debug: false
+
+
+
+
+
+
+
+
+
+
+
+
+

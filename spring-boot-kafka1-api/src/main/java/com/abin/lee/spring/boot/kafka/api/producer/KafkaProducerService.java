@@ -2,10 +2,13 @@ package com.abin.lee.spring.boot.kafka.api.producer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.PartitionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.ProducerListener;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by abin on 2018/3/16 16:17.
@@ -22,8 +25,11 @@ public class KafkaProducerService {
     public void sendMessage(String topicName, String jsonData) {
         log.info("向kafka推送数据:[{}]", jsonData);
         try {
-            kafkaTemplate.send(topicName, jsonData);
-            kafkaTemplate.send(topicName, 1, jsonData);
+//            kafkaTemplate.send(topicName, jsonData);
+            List<PartitionInfo> partitionList = kafkaTemplate.partitionsFor(topicName);
+            for (int i = 0; i < partitionList.size(); i++) {
+                kafkaTemplate.send(topicName, 1, jsonData);
+            }
         } catch (Exception e) {
             log.error("发送数据出错！！！{}{}", topicName, jsonData);
             log.error("发送数据出错=====>", e);

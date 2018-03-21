@@ -23,6 +23,7 @@ public class KafkaProducerService {
         log.info("向kafka推送数据:[{}]", jsonData);
         try {
             kafkaTemplate.send(topicName, jsonData);
+            kafkaTemplate.send(topicName, 1, jsonData);
         } catch (Exception e) {
             log.error("发送数据出错！！！{}{}", topicName, jsonData);
             log.error("发送数据出错=====>", e);

@@ -27,6 +27,7 @@ public class KafkaConsumerService {
         System.out.println("--------------------before----processKafkaMessage------------------------");
         log.info("{} - {} : {}", consumerRecord.topic(), consumerRecord.key(), consumerRecord.value());
         System.out.println("--------------------after------processKafkaMessage------------------------");
+//        consumerRecord.partition();
     }
 
 
